@@ -11,7 +11,6 @@
   #include "ssd1306.h"
 #endif
 
-extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
@@ -50,10 +49,6 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
