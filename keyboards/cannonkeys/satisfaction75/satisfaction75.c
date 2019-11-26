@@ -366,12 +366,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
-  encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
+  bool clockwise_invert = !clockwise;
+  encoder_value = (encoder_value + (clockwise_invert ? 1 : -1)) % 64;
   queue_for_send = true;
   if (index == 0) {
     if (layer == 0){
       uint16_t mapped_code = 0;
-      if (clockwise) {
+      if (clockwise_invert) {
         mapped_code = handle_encoder_clockwise();
       } else {
         mapped_code = handle_encoder_ccw();
@@ -383,7 +384,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
         unregister_code16(mapped_code);
       }
     } else {
-      if(clockwise){
+      if(clockwise_invert){
         change_encoder_mode(false);
       } else {
         change_encoder_mode(true);
